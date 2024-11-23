@@ -1,0 +1,162 @@
+---
+// Chat component
+---
+
+<div class="chat-widget">
+  <button class="chat-toggle" aria-label="Toggle chat" id="chatToggle">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    </svg>
+  </button>
+
+  <div class="chat-container" id="chatContainer">
+    <div class="chat-header">
+      <h3>Chatbot Assistant</h3>
+      <button class="close-button" id="closeChat">×</button>
+    </div>
+    
+    <div class="chat-messages">
+      <div class="message bot">
+        <p>Hello! How can I assist you today?</p>
+      </div>
+    </div>
+
+    <div class="chat-input">
+      <input type="text" placeholder="Type your message..." id="messageInput">
+      <button class="send-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .chat-widget {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 1000;
+  }
+
+  .chat-toggle {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background: var(--gradient-subtle);
+    border: 1px solid var(--gray-800);
+    color: var(--gray-300);
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+  }
+
+  .chat-toggle:hover {
+    transform: scale(1.1);
+  }
+
+  .chat-container {
+    position: absolute;
+    bottom: 5rem;
+    right: 0;
+    width: 320px;
+    height: 450px;
+    background: var(--gray-999);
+    border: 1px solid var(--gray-800);
+    border-radius: 1.5rem;
+    box-shadow: var(--shadow-lg);
+    display: none;
+    flex-direction: column;
+  }
+
+  .chat-container.active {
+    display: flex;
+  }
+
+  .chat-header {
+    padding: 1rem;
+    border-bottom: 1px solid var(--gray-800);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .chat-header h3 {
+    margin: 0;
+    color: var(--gray-300);
+  }
+
+  .close-button {
+    background: none;
+    border: none;
+    color: var(--gray-300);
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .chat-messages {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+  }
+
+  .message {
+    margin-bottom: 1rem;
+  }
+
+  .message p {
+    max-width: 80%;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    margin: 0;
+  }
+
+  .message.bot p {
+    background: var(--gradient-subtle);
+    border: 1px solid var(--gray-800);
+    color: var(--gray-300);
+  }
+
+  .chat-input {
+    padding: 1rem;
+    border-top: 1px solid var(--gray-800);
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .chat-input input {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    border-radius: 1.5rem;
+    border: 1px solid var(--gray-800);
+    background: var(--gray-999);
+    color: var(--gray-300);
+  }
+
+  .send-button {
+    background: none;
+    border: none;
+    color: var(--gray-300);
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+</style>
+
+<script>
+  const chatToggle = document.getElementById('chatToggle');
+  const chatContainer = document.getElementById('chatContainer');
+  const closeChat = document.getElementById('closeChat');
+
+  chatToggle?.addEventListener('click', () => {
+    chatContainer?.classList.toggle('active');
+  });
+
+  closeChat?.addEventListener('click', () => {
+    chatContainer?.classList.remove('active');
+  });
+</script>
