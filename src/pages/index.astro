@@ -32,23 +32,28 @@ import ContactCTA from '../components/ContactCTA.astro';
 		<div class="wrapper stack gap-8 lg:gap-20">
 			<header class="hero">
 				<Hero
-					title="Hello, my name is Claudia Figueroa"
-					tagline="I am a psicology who is currently based in Tunja, Colombia."
+					title="Hola, mi nombre es Claudia Figueroa"
+					tagline="Soy psicóloga y actualmente vivo en Tunja, Colombia."
 					align="start"
 				>
 					<div class="roles">
-						<Pill><Icon icon="code" size="1.33em" /> Developer</Pill>
-						<Pill><Icon icon="microphone-stage" size="1.33em" /> Speaker</Pill>
-						<Pill><Icon icon="pencil-line" size="1.33em" /> Writer</Pill>
+						<Pill><Icon icon="code" size="1.33em" /> Desarrolladora</Pill>
+						<Pill><Icon icon="microphone-stage" size="1.33em" /> Conferencista</Pill>
+						<Pill><Icon icon="pencil-line" size="1.33em" /> Escritora</Pill>
 					</div>
 				</Hero>
 
-				<img
-					alt="Claudia Figueroa smiling in a red plaid shirt and tortoise shell glasses"
-					width="480"
-					height="620"
-					src="/assets/portrait.jpg"
-				/>
+				<div class="image-container">
+					<img
+						alt="Claudia Figueroa sonriendo con una camisa roja a cuadros y gafas de carey"
+						width="480"
+						height="620"
+						src="/assets/portrait.jpg"
+					/>
+					<button class="chat-cta" id="heroChat">
+						<Icon icon="terminal-window" size="1.33em" /> ¡Chatea conmigo!
+					</button>
+				</div>
 			</header>
 
 			<!-- <Skills /> -->
@@ -252,4 +257,37 @@ import ContactCTA from '../components/ContactCTA.astro';
 			height: 9.5rem;
 		}
 	}
+
+	.image-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.chat-cta {
+		background: var(--gradient-subtle);
+		border: 1px solid var(--gray-800);
+		border-radius: 999rem;
+		color: var(--gray-300);
+		padding: 0.5rem 1.5rem;
+		font-size: var(--text-md);
+		line-height: 1.35;
+		white-space: nowrap;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		transition: transform 0.2s;
+	}
+
+	.chat-cta:hover {
+		transform: scale(1.05);
+	}
 </style>
+
+<script>
+	document.getElementById('heroChat')?.addEventListener('click', () => {
+		document.getElementById('chatToggle')?.click();
+	});
+</script>

@@ -5,25 +5,28 @@
 <div class="chat-widget">
   <button class="chat-toggle" aria-label="Toggle chat" id="chatToggle">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+      <path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"/>
+      <path d="M9 17v1a3 3 0 0 0 6 0v-1"/>
+      <circle cx="9" cy="9" r="1"/>
+      <circle cx="15" cy="9" r="1"/>
     </svg>
   </button>
 
   <div class="chat-container" id="chatContainer">
     <div class="chat-header">
-      <h5>Chatbot Assistant</h5>
+      <h5>Asistente Virtual</h5>
       <button class="close-button" id="closeChat">×</button>
     </div>
     
     <div class="chat-messages">
       <div class="message bot">
-        <p>Hola, cómo puedo ayudarte?</p>
+        <p>Hola, ¿cómo puedo ayudarte?</p>
       </div>
       <div class="message user" />
     </div>
 
     <div class="chat-input">
-      <input type="text" placeholder="Type your message..." id="messageInput">
+      <input type="text" placeholder="Escribe tu mensaje..." id="messageInput">
       <button class="send-button">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="22" y1="2" x2="11" y2="13"></line>
@@ -43,8 +46,8 @@
   }
 
   .chat-toggle {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 4rem;
+    height: 4rem;
     border-radius: 50%;
     background: var(--gradient-subtle);
     border: 1px solid var(--gray-800);
@@ -225,7 +228,7 @@
     messageDiv.id = 'loadingMessage';
     
     const messageParagraph = document.createElement('p');
-    messageParagraph.textContent = 'Thinking...';
+    messageParagraph.textContent = 'Pensando...';
     
     messageDiv.appendChild(messageParagraph);
     chatMessages?.appendChild(messageDiv);
@@ -321,7 +324,7 @@
     } catch (error) {
       console.error(error);
       removeLoadingMessage();
-      addMessage('Sorry, I encountered an error. Please try again.', true);
+      addMessage('Lo siento, encontré un error. Por favor, intenta de nuevo.', true);
     }
   }
 
