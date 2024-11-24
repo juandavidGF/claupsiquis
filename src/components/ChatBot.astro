@@ -11,7 +11,7 @@
 
   <div class="chat-container" id="chatContainer">
     <div class="chat-header">
-      <h3>Chatbot Assistant</h3>
+      <h5>Chatbot Assistant</h5>
       <button class="close-button" id="closeChat">×</button>
     </div>
     
@@ -19,6 +19,7 @@
       <div class="message bot">
         <p>Hello! How can I assist you today?</p>
       </div>
+      <div class="message user" />
     </div>
 
     <div class="chat-input">
@@ -33,7 +34,7 @@
   </div>
 </div>
 
-<style>
+<style is:global>
   .chat-widget {
     position: fixed;
     bottom: 2rem;
@@ -64,8 +65,8 @@
     position: absolute;
     bottom: 5rem;
     right: 0;
-    width: 320px;
-    height: 450px;
+    width: 420px;
+    height: 650px;
     background: var(--gray-999);
     border: 1px solid var(--gray-800);
     border-radius: 1.5rem;
@@ -103,10 +104,15 @@
     flex: 1;
     padding: 1rem;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
   }
 
   .message {
     margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
   }
 
   .message p {
@@ -114,12 +120,29 @@
     padding: 0.5rem 1rem;
     border-radius: 1rem;
     margin: 0;
+    word-break: break-word;
   }
 
-  .message.bot p {
+  .message.user {
+    align-items: flex-end;
+  }
+
+  .message.bot {
+    align-items: flex-start;
+  }
+
+  .message.user p {
     background: var(--gradient-subtle);
     border: 1px solid var(--gray-800);
     color: var(--gray-300);
+    border-top-right-radius: 0.2rem;
+  }
+
+  .message.bot p {
+    background: var(--gray-999);
+    border: 1px solid var(--gray-800);
+    color: var(--gray-300);
+    border-top-left-radius: 0.2rem;
   }
 
   .chat-input {
@@ -151,7 +174,11 @@
   const chatToggle = document.getElementById('chatToggle');
   const chatContainer = document.getElementById('chatContainer');
   const closeChat = document.getElementById('closeChat');
+  const messageInput = document.getElementById('messageInput') as HTMLInputElement;
+  const sendButton = document.querySelector('.send-button');
+  const chatMessages = document.querySelector('.chat-messages');
 
+  // Toggle chat functions
   chatToggle?.addEventListener('click', () => {
     chatContainer?.classList.toggle('active');
   });
@@ -159,4 +186,60 @@
   closeChat?.addEventListener('click', () => {
     chatContainer?.classList.remove('active');
   });
+
+  // Add message to chat
+  function addMessage(message: string, isBot: boolean) {
+    // Crear el div principal del mensaje
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${isBot ? 'bot' : 'user'}`;
+    
+    // Crear el párrafo del mensaje
+    const messageParagraph = document.createElement('p');
+    messageParagraph.textContent = message;  // Usar textContent en lugar de innerHTML por seguridad
+    
+    // Agregar el párrafo al div del mensaje
+    messageDiv.appendChild(messageParagraph);
+    
+    // Agregar el mensaje al contenedor de chat
+    chatMessages?.appendChild(messageDiv);
+    chatMessages?.scrollTo(0, chatMessages.scrollHeight);
+  }
+
+  // Send message
+  async function sendMessage() {
+    const message = messageInput?.value.trim();
+    if (!message) return;
+
+    // Add user message to chat
+    addMessage(message, false);
+    messageInput.value = '';
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to get response');
+      }
+
+      const data = await response.json();
+      addMessage(data.message, true);
+    } catch (error) {
+      addMessage('Sorry, I encountered an error. Please try again.', true);
+    }
+  }
+
+  // Event listeners for sending messages
+  sendButton?.addEventListener('click', sendMessage);
+  messageInput?.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      sendMessage();
+    }
+  });
 </script>
+
