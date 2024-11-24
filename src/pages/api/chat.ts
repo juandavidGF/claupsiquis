@@ -5,6 +5,7 @@ const openai = new OpenAI({
   apiKey: import.meta.env.OPENAI_API_KEY
 });
 
+
 // Define the MessageContent type
 type MessageContent = 
   | { text: string }
@@ -26,31 +27,27 @@ function handleMessageContent(content: MessageContent) {
 export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
-    const { threadId, runId } = body;
+    const { message, userId } = body;
 
-    const run = await openai.beta.threads.runs.retrieve(
-      threadId,
-      runId
-    );
+    // Create a thread if not provided
+    const thread = await openai.beta.threads.create();
+    
+    // Add the message to the thread
+    await openai.beta.threads.messages.create(thread.id, {
+      role: "user",
+      content: message
+    });
 
-    if (run.status === 'completed') {
-      const messages = await openai.beta.threads.messages.list(threadId);
-      const lastMessage = messages.data[0];
+    // Create a run
+    const run = await openai.beta.threads.runs.create(thread.id, {
+      assistant_id: import.meta.env.ASSISTANT_ID
+    });
 
-      return new Response(
-        JSON.stringify({ 
-          status: run.status,
-          message: handleMessageContent(lastMessage.content[0] as unknown as MessageContent)
-        }),
-        {
-          headers: { 'Content-Type': 'application/json' }
-        }
-      );
-    }
-
+    // Return the threadId and runId
     return new Response(
       JSON.stringify({ 
-        status: run.status
+        threadId: thread.id,
+        runId: run.id
       }),
       {
         headers: { 'Content-Type': 'application/json' }
