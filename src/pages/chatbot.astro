@@ -48,6 +48,7 @@ import Hero from '../components/Hero.astro';
 <script>
 	const form = document.getElementById('chat-form');
 	const chatHistory = document.getElementById('chat-history');
+	const userInput = document.getElementById('user-input') as HTMLInputElement;
 	
 	function addMessageToChat(sender: string, message: string) {
 		if (!chatHistory) return;
@@ -72,12 +73,11 @@ import Hero from '../components/Hero.astro';
 		`;
 
 		chatHistory.appendChild(messageDiv);
-		chatHistory.scrollTop = chatHistory.scrollHeight;
+		chatHistory.scrollHeight;
 	}
 
-	if (form) {
-		const userInput = document.getElementById('user-input') as HTMLInputElement;
-		if (!userInput) return;
+	function initializeChat() {
+		if (!form || !userInput) return;
 
 		form.addEventListener('submit', async (e) => {
 			e.preventDefault();
@@ -89,12 +89,12 @@ import Hero from '../components/Hero.astro';
 
 			try {
 				const response = await fetch('/api/chatbot', { 
-						method: 'POST',
-						headers: {
-							'Content-Type': 'application/json'
-						},
-						body: JSON.stringify({ message }) 
-					});
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ message }) 
+				});
 				const data = await response.json();
 				addMessageToChat('bot', data.reply || 'Something went wrong!');
 			} catch (error) {
@@ -103,6 +103,9 @@ import Hero from '../components/Hero.astro';
 			}
 		});
 	}
+
+	// Initialize the chat
+	initializeChat();
 </script>
 
 <style>
