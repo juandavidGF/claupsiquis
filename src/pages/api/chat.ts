@@ -40,7 +40,7 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(
         JSON.stringify({ 
           status: run.status,
-          message: handleMessageContent(lastMessage.content[0])
+          message: handleMessageContent(lastMessage.content[0] as unknown as MessageContent)
         }),
         {
           headers: { 'Content-Type': 'application/json' }
