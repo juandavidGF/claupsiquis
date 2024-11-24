@@ -290,6 +290,7 @@
       const payload = { 
         message,
         userId: chatState.userId,
+        threadId: chatState.threadId  // Incluir threadId si existe
       }
       const response = await fetch('/api/chat', {
         method: 'POST',
@@ -304,7 +305,7 @@
       }
 
       const { threadId, runId } = await response.json();
-      chatState.threadId = threadId;
+      chatState.threadId = threadId;  // Guardar el threadId para futuros mensajes
 
       console.log({ threadId, runId });
 
