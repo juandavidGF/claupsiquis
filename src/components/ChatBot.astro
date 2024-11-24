@@ -292,6 +292,8 @@
         userId: chatState.userId,
         threadId: chatState.threadId  // Incluir threadId si existe
       }
+
+      console.log({payload});
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {

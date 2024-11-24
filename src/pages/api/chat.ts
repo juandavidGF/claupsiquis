@@ -27,10 +27,16 @@ function handleMessageContent(content: MessageContent) {
 export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
-    const { message, userId } = body;
+    const { message, userId, threadId } = body;
 
-    // Create a thread if not provided
-    const thread = await openai.beta.threads.create();
+    // Use existing thread or create a new one
+    console.log({threadId});
+    let thread;
+    if (threadId) {
+      thread = { id: threadId };
+    } else {
+      thread = await openai.beta.threads.create();
+    }
     
     // Add the message to the thread
     await openai.beta.threads.messages.create(thread.id, {
