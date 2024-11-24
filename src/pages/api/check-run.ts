@@ -19,12 +19,15 @@ export const POST: APIRoute = async ({ request }) => {
       const messages = await openai.beta.threads.messages.list(threadId);
       const lastMessage = messages.data[0];
 
+      const messageContent = lastMessage.content[0];
+      const messageText = messageContent.type === 'text' 
+        ? messageContent.text.value 
+        : '';
+
       return new Response(
         JSON.stringify({ 
           status: run.status,
-          message: lastMessage.content[0].type === 'text' 
-            ? lastMessage.content[0].text.value 
-            : ''
+          message: messageText
         }),
         {
           headers: { 'Content-Type': 'application/json' }
