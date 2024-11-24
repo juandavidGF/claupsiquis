@@ -5,6 +5,24 @@ const openai = new OpenAI({
   apiKey: import.meta.env.OPENAI_API_KEY
 });
 
+// Define the MessageContent type
+type MessageContent = 
+  | { text: string }
+  | { image: string };
+
+// Assuming you have a type guard or a way to differentiate message content types
+function handleMessageContent(content: MessageContent) {
+    if ('text' in content) {
+        // Handle text content
+        return content.text; // Access text property safely
+    } else if ('image' in content) {
+        // Handle image content
+        return content.image; // Access image property safely
+    }
+    // Handle other content types as necessary
+    throw new Error('Unsupported message content type');
+}
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
@@ -22,7 +40,7 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(
         JSON.stringify({ 
           status: run.status,
-          message: lastMessage.content[0].text.value
+          message: handleMessageContent(lastMessage.content[0])
         }),
         {
           headers: { 'Content-Type': 'application/json' }
