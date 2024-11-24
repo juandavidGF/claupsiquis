@@ -62,11 +62,13 @@
   }
 
   .chat-container {
-    position: absolute;
-    bottom: 5rem;
-    right: 0;
-    width: 420px;
-    height: 650px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    max-width: 56rem;
+    height: 90vh;
     background: var(--gray-999);
     border: 1px solid var(--gray-800);
     border-radius: 1.5rem;
