@@ -30,9 +30,116 @@ import Grid from '../components/Grid.astro';
 						</iframe>
 					</div>
 					<p class="description">
-						Descripción del video y su contenido didáctico...
+						<!-- Descripción del video y su contenido didáctico... -->
 					</p>
 				</article>
+				<article class="content-item">
+					<h2>Yhoana Calderón López - Docente de la E.N.S - Amazonas</h2>
+					<div class="video-container">
+						<iframe
+							src="https://drive.google.com/file/d/1v1-ua131atg39IGqIrzrI4TzrOfhFuw5/preview"
+							allow="autoplay"
+							allowfullscreen
+							loading="lazy">
+						</iframe>
+					</div>
+					<p class="description">
+						<!-- Descripción del video y su contenido didáctico... -->
+					</p>
+				</article>
+				<article class="content-item">
+					<h2>Entrevista diagnóstica HOMBRE LETICIA AMAZONAS</h2>
+					<p class="description">
+						<a href="https://docs.google.com/document/d/1EcD-FRWuAbU1ngqvwvUncbaFi9VRgwGT/edit?usp=sharing&ouid=100585831837998689795&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer">
+							Accede a la entrevista sobre la enseñanza de las ciencias sociales aquí.
+						</a>
+					</p>
+					<h2>Galería de Imágenes</h2>
+					<div class="carousel">
+						<div class="carousel-inner">
+							<img src="/assets/fotos/imagen1.jpeg" alt="Descripción de la imagen 1" class="carousel-item active" />
+							<img src="/assets/fotos/imagen2.jpeg" alt="Descripción de la imagen 2" class="carousel-item" />
+							<img src="/assets/fotos/imagen3.jpeg" alt="Descripción de la imagen 3" class="carousel-item" />
+							<img src="/assets/fotos/imagen4.jpeg" alt="Descripción de la imagen 4" class="carousel-item" />
+							<img src="/assets/fotos/imagen5.jpeg" alt="Descripción de la imagen 5" class="carousel-item" />
+							<img src="/assets/fotos/imagen6.jpeg" alt="Descripción de la imagen 6" class="carousel-item" />
+							<img src="/assets/fotos/imagen7.jpeg" alt="Descripción de la imagen 7" class="carousel-item" />
+							<img src="/assets/fotos/imagen8.jpeg" alt="Descripción de la imagen 8" class="carousel-item" />
+							<img src="/assets/fotos/imagen9.jpeg" alt="Descripción de la imagen 9" class="carousel-item" />
+							<img src="/assets/fotos/imagen10.jpg" alt="Descripción de la imagen 10" class="carousel-item" />
+							<img src="/assets/fotos/imagen11.jpg" alt="Descripción de la imagen 11" class="carousel-item" />
+							<img src="/assets/fotos/imagen12.jpg" alt="Descripción de la imagen 12" class="carousel-item" />
+							<img src="/assets/fotos/imagen13.jpg" alt="Descripción de la imagen 13" class="carousel-item" />
+							<img src="/assets/fotos/imagen14.jpg" alt="Descripción de la imagen 14" class="carousel-item" />
+							<img src="/assets/fotos/imagen15.jpg" alt="Descripción de la imagen 15" class="carousel-item" />
+							<img src="/assets/fotos/imagen16.jpg" alt="Descripción de la imagen 16" class="carousel-item" />
+							<img src="/assets/fotos/imagen17.jpg" alt="Descripción de la imagen 17" class="carousel-item" />
+						</div>
+						<button class="carousel-control prev" onclick="moveCarousel(-1)">&#10094;</button>
+						<button class="carousel-control next" onclick="moveCarousel(1)">&#10095;</button>
+					</div>
+				</article>
+
+				<script>
+					let currentIndex = 0;
+					const items = document.querySelectorAll('.carousel-item');
+					const totalItems = items.length;
+
+					function showItem(index: number) {
+						items.forEach((item: Element, i: number) => {
+							(item as HTMLElement).style.display = (i === index) ? 'block' : 'none';
+						});
+					}
+
+					function moveCarousel(direction: number) {
+						currentIndex = (currentIndex + direction + totalItems) % totalItems;
+						showItem(currentIndex);
+					}
+
+					function autoSlide() {
+						moveCarousel(1);
+					}
+
+					setInterval(autoSlide, 5000); // Cambia cada 5 segundos
+					showItem(currentIndex); // Muestra el primer elemento al cargar
+				</script>
+
+				<style>
+					.carousel {
+						position: relative;
+						width: 100%;
+						overflow: hidden;
+					}
+
+					.carousel-inner {
+						display: flex;
+						transition: transform 0.5s ease;
+					}
+
+					.carousel-item {
+						min-width: 100%;
+						display: none; /* Oculta todas las imágenes por defecto */
+					}
+
+					.carousel-control {
+						position: absolute;
+						top: 50%;
+						transform: translateY(-50%);
+						background-color: rgba(0, 0, 0, 0.5);
+						color: white;
+						border: none;
+						cursor: pointer;
+						padding: 10px;
+					}
+
+					.prev {
+						left: 10px;
+					}
+
+					.next {
+						right: 10px;
+					}
+				</style>
 
 				<!-- Puedes agregar más artículos siguiendo la misma estructura -->
 			</div>
