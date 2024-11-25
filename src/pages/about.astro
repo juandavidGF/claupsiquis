@@ -12,12 +12,14 @@ import Hero from '../components/Hero.astro';
 				title="Sobre mí"
 				tagline="Conoce más sobre mi formación académica y experiencia profesional."
 			>
-				<img
-					width="480"
-					height="620"
-					src="/assets/portrait.jpg"
-					alt="Claudia Figueroa sonriendo con una camisa roja a cuadros y gafas de carey"
-				/>
+				<div class="image-container">
+					<img
+						width="480"
+						height="620"
+						src="/assets/portrait.jpg"
+						alt="Claudia Figueroa sonriendo con una camisa roja a cuadros y gafas de carey"
+					/>
+				</div>
 			</Hero>
 
 			<section>
@@ -105,5 +107,11 @@ import Hero from '../components/Hero.astro';
 			display: contents;
 			font-size: var(--text-lg);
 		}
+	}
+
+	.image-container {
+		display: flex;
+		justify-content: center;
+		margin-top: 1.5rem;
 	}
 </style>
