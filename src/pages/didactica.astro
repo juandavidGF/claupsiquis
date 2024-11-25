@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import Hero from '../components/Hero.astro';
+import Grid from '../components/Grid.astro';
+
+---
+
+<BaseLayout
+	title="Didácticas | Claudia Figueroa"
+	description="Recursos didácticos y material educativo"
+>
+	<div class="stack gap-20">
+		<main class="wrapper stack gap-8">
+			<Hero
+				title="Didácticas"
+				tagline="Explora recursos y materiales educativos para el aprendizaje efectivo."
+				align="start"
+			/>
+			
+			<div class="content-grid">
+				<article class="content-item">
+					<h2>Título del Video 1</h2>
+					<div class="video-container">
+						<iframe
+							src="https://drive.google.com/file/d/1nJn2w6kVmkBSdXQYIHOKShO_9Vgm7M9a/preview"
+							allow="autoplay"
+							allowfullscreen
+							loading="lazy">
+						</iframe>
+					</div>
+					<p class="description">
+						Descripción del video y su contenido didáctico...
+					</p>
+				</article>
+
+				<!-- Puedes agregar más artículos siguiendo la misma estructura -->
+			</div>
+		</main>
+		<ContactCTA />
+	</div>
+</BaseLayout>
+
+<style>
+	.content-grid {
+		display: grid;
+		gap: 3rem;
+	}
+
+	.content-item {
+		border-radius: 1.5rem;
+		padding: 2rem;
+		background: var(--gray-999_40);
+		box-shadow: var(--shadow-sm);
+	}
+
+	.content-item h2 {
+		font-size: var(--text-xl);
+		margin-bottom: 1rem;
+	}
+
+	.video-container {
+		position: relative;
+		padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+		height: 0;
+		overflow: hidden;
+		border-radius: 1rem;
+		margin-bottom: 1rem;
+	}
+
+	.video-container iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		border: 0;
+	}
+
+	.description {
+		color: var(--gray-300);
+		line-height: 1.6;
+	}
+
+	@media (min-width: 50em) {
+		.content-grid {
+			grid-template-columns: 1fr;
+			gap: 4rem;
+		}
+
+		.content-item {
+			padding: 3rem;
+		}
+	}
+</style>
